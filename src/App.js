@@ -1,23 +1,21 @@
-import logo from './logo.svg';
+import Header from './components/Header';
+import Card from './components/Card';
+import Caption from './components/Caption';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header></Header>
+      <Card>
+        <Caption>Caption</Caption>
+        <div className="text">
+          Building interactive user interfaces in React is fun and easy. You
+          just need to describe how parts of the application interface look in
+          different states. React will update them in a timely manner when the
+          data changes
+        </div>
+      </Card>
     </div>
   );
 }
