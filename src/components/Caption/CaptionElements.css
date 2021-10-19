@@ -1,0 +1,10 @@
+.no-display {
+  display: none;
+}
+
+button {
+  background-color: rgb(230, 228, 235);
+  border-radius: 2px;
+  border: 1px solid rgb(167, 167, 207);
+  margin: 1px;
+}
