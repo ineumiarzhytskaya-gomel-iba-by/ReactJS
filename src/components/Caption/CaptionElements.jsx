@@ -1,10 +1,12 @@
 import "./CaptionElements.css";
 import React, { useState } from "react";
 import { FaPen } from "react-icons/fa";
+import { FaCheck } from "react-icons/fa";
+import { FaTimes } from "react-icons/fa";
 
 const StyleChanger = (props) => {
-  const [cbState, setCbState] = useState(false);
-  const [penClicked, setPenClicked] = useState(false);
+  const [cbState, setCbState] = useState(false); //false - dafault styles, true - dark mode
+  const [penClicked, setPenClicked] = useState(false); //true - edit mode
 
   const changeHandler = (event) => {
     setCbState(event.target.checked);
@@ -12,22 +14,22 @@ const StyleChanger = (props) => {
   };
 
   const penClickHandler = () => {
-    setCbState(false);
+    setCbState(false); //set default styles in edit mode
     props.onCbValue(false);
 
-    setPenClicked(true);
+    setPenClicked(true); //set edit mode
     props.onPenClicked(true);
   };
 
   const saveClickHandler = () => {
-    setPenClicked(false);
+    setPenClicked(false); //unset edit mode
     props.onPenClicked(false);
 
     props.onSaveClick();
   };
 
   const cancelClickHandler = () => {
-    setPenClicked(false);
+    setPenClicked(false); //unset edit mode
     props.onPenClicked(false);
 
     props.onCancelClick();
@@ -35,28 +37,16 @@ const StyleChanger = (props) => {
 
   return (
     <div>
-      <FaPen
-        onClick={penClickHandler}
-        className={penClicked ? "no-display" : ""}
-      />
-      <input
-        type="checkbox"
-        onChange={changeHandler}
-        checked={cbState}
-        className={penClicked ? "no-display" : ""}
-      ></input>
-      <button
-        onClick={saveClickHandler}
-        className={penClicked ? "" : "no-display"}
-      >
-        Save
-      </button>
-      <button
-        onClick={cancelClickHandler}
-        className={penClicked ? "" : "no-display"}
-      >
-        Cancel
-      </button>
+      {!penClicked && <FaPen onClick={penClickHandler} />}
+      {!penClicked && (
+        <input
+          type="checkbox"
+          onChange={changeHandler}
+          checked={cbState}
+        ></input>
+      )}
+      {penClicked && <FaCheck onClick={saveClickHandler} className="fa" />}
+      {penClicked && <FaTimes onClick={cancelClickHandler} className="fa" />}
     </div>
   );
 };
