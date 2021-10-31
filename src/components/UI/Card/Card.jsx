@@ -2,49 +2,55 @@ import React, { useState } from "react";
 import "./Card.css";
 import CardBody from "./CardBody/CardBody";
 import CardHeader from "./CardHeader/CardHeader";
+import classNames from "classnames";
 
 function Card(props) {
-  const classes = "card " + props.className;
-
-  var text = `Building interactive user interfaces in React is fun and easy. You
-  just need to describe how parts of the application interface look in
-  different states. React will update them in a timely manner when the
-  data changes`;
-
   const [cbValue, setCbValue] = useState(""); //checkbox state
   const [penClicked, setPenClicked] = useState(false); //true - card body is content editable
-  //current body text value
-  const [currentTextValue, setCurrentTextValue] = useState(text);
-  //last saved body text value to cancel changes
-  const [lastTextValue, setLastTextValue] = useState(text);
+  //current header and body values
+  const [currentValue, setCurrentValue] = useState(props.CardText);
+  //last saved header and body values to cancel changes
+  const [lastValue, setLastValue] = useState(props.CardText);
 
-  const classNames = require("classnames");
   //dark styles mode if checkbox is checked
-  const cardClasses = classNames(classes, { "dark-mode-card": cbValue });
+  const cardClasses = classNames("card", { "dark-mode-card": cbValue });
 
-  //setting checkbox state
   const cbValueHandler = (val) => {
-    setCbValue(val);
+    setCbValue(val); //setting checkbox state
   };
 
   const penClickedHandler = (val) => {
     setPenClicked(val); //setting/unsetting edit mode
   };
 
-  //updating last saved body text value
+  //updating header and body last saved values
   const saveClickHander = () => {
-    setLastTextValue(currentTextValue);
+    setLastValue({
+      ...currentValue,
+    });
   };
 
-  //setting body text value to last saved
+  //setting header and body values to last saved
   const cancelClickHandler = () => {
-    setCurrentTextValue(lastTextValue);
+    setCurrentValue({
+      ...lastValue,
+    });
   };
 
-  //updating current body text value
+  //updating current header and body values
   //setting to passed from the child
-  const inputFinishHandler = (event) => {
-    setCurrentTextValue(event);
+  const bodyInputFinishHandler = (val) => {
+    setCurrentValue({
+      ...currentValue,
+      bodyText: val,
+    });
+  };
+
+  const headerInputFinishHandler = (val) => {
+    setCurrentValue({
+      ...currentValue,
+      headerText: val,
+    });
   };
 
   return (
@@ -54,9 +60,17 @@ function Card(props) {
         onPenClicked={penClickedHandler}
         onSaveClick={saveClickHander}
         onCancelClick={cancelClickHandler}
-      ></CardHeader>
-      <CardBody contentEditable={penClicked} onBlur={inputFinishHandler}>
-        {currentTextValue}
+        contentEditableHandler={penClicked}
+        cbValueForStyle={cbValue}
+        onHeaderBlurHandler={headerInputFinishHandler}
+      >
+        {currentValue.headerText}
+      </CardHeader>
+      <CardBody
+        contentEditableHandler={penClicked}
+        onBodyBlurHandler={bodyInputFinishHandler}
+      >
+        {currentValue.bodyText}
       </CardBody>
     </div>
   );

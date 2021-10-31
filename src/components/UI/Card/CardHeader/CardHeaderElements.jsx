@@ -1,4 +1,4 @@
-import "./CaptionElements.css";
+import "./CardHeaderElements.css";
 import React, { useState } from "react";
 import { FaPen } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa";
