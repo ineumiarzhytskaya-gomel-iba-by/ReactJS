@@ -5,49 +5,52 @@ import { FaCheck } from "react-icons/fa";
 import { FaTimes } from "react-icons/fa";
 
 const StyleChanger = (props) => {
-  const [cbState, setCbState] = useState(false); //false - dafault styles, true - dark mode
   const [penClicked, setPenClicked] = useState(false); //true - edit mode
 
+
   const changeHandler = (event) => {
-    setCbState(event.target.checked);
-    props.onCbValue(!cbState);
+    props.onCbChange(); //passing checkbox value change to the parent
   };
 
   const penClickHandler = () => {
-    setCbState(false); //set default styles in edit mode
-    props.onCbValue(false);
+    props.onCbChange();
 
     setPenClicked(true); //set edit mode
-    props.onPenClicked(true);
+    props.onPenClick(); //passing edit mode change
   };
 
   const saveClickHandler = () => {
     setPenClicked(false); //unset edit mode
-    props.onPenClicked(false);
+    props.onPenClick();
 
     props.onSaveClick();
   };
 
   const cancelClickHandler = () => {
     setPenClicked(false); //unset edit mode
-    props.onPenClicked(false);
+    props.onPenClick();
 
     props.onCancelClick();
   };
 
   return (
-    <div>
-      {!penClicked && <FaPen onClick={penClickHandler} />}
+    <>
       {!penClicked && (
-        <input
-          type="checkbox"
-          onChange={changeHandler}
-          checked={cbState}
-        ></input>
+        <>
+          <FaPen onClick={penClickHandler} />
+          <input
+            type="checkbox"
+            onChange={changeHandler}
+          ></input>
+        </>
       )}
-      {penClicked && <FaCheck onClick={saveClickHandler} className="fa" />}
-      {penClicked && <FaTimes onClick={cancelClickHandler} className="fa" />}
-    </div>
+      {penClicked && (
+        <>
+          <FaCheck onClick={saveClickHandler} className="fa" />
+          <FaTimes onClick={cancelClickHandler} className="fa" />
+        </>
+      )}
+    </>
   );
 };
 

@@ -5,22 +5,25 @@ import CardHeader from "./CardHeader/CardHeader";
 import classNames from "classnames";
 
 function Card(props) {
-  const [cbValue, setCbValue] = useState(""); //checkbox state
-  const [penClicked, setPenClicked] = useState(false); //true - card body is content editable
+  const [isSelected, setIsSelected] = useState(false); //checkbox state
+  const [isEdited, setIsEdited] = useState(false); //edit mode
   //current header and body values
   const [currentValue, setCurrentValue] = useState(props.CardText);
   //last saved header and body values to cancel changes
   const [lastValue, setLastValue] = useState(props.CardText);
 
   //dark styles mode if checkbox is checked
-  const cardClasses = classNames("card", { "dark-mode-card": cbValue });
+  const cardClasses = classNames("card", { "dark-mode-card": isSelected });
 
-  const cbValueHandler = (val) => {
-    setCbValue(val); //setting checkbox state
+  const cbChangeHandler = () => {
+    if (!isEdited) {
+      setIsSelected(!isSelected); //setting checkbox state
+    }
   };
 
-  const penClickedHandler = (val) => {
-    setPenClicked(val); //setting/unsetting edit mode
+  const penClickHandler = () => {
+    setIsEdited(!isEdited); //setting/unsetting edit mode
+    setIsSelected(false); //unchecking checkbox
   };
 
   //updating header and body last saved values
@@ -39,36 +42,29 @@ function Card(props) {
 
   //updating current header and body values
   //setting to passed from the child
-  const bodyInputFinishHandler = (val) => {
+  const inputFinishHandler = (elem) => {
     setCurrentValue({
       ...currentValue,
-      bodyText: val,
-    });
-  };
-
-  const headerInputFinishHandler = (val) => {
-    setCurrentValue({
-      ...currentValue,
-      headerText: val,
-    });
-  };
+      [elem.id]: elem.innerText
+    })
+  }
 
   return (
     <div className={cardClasses}>
       <CardHeader
-        onCbValue={cbValueHandler}
-        onPenClicked={penClickedHandler}
+        onCbChange={cbChangeHandler}
+        onPenClick={penClickHandler}
         onSaveClick={saveClickHander}
         onCancelClick={cancelClickHandler}
-        contentEditableHandler={penClicked}
-        cbValueForStyle={cbValue}
-        onHeaderBlurHandler={headerInputFinishHandler}
+        contentEditableHandler={isEdited}
+        cbValueForStyle={isSelected}
+        onHeaderBlurHandler={inputFinishHandler}
       >
         {currentValue.headerText}
       </CardHeader>
       <CardBody
-        contentEditableHandler={penClicked}
-        onBodyBlurHandler={bodyInputFinishHandler}
+        contentEditableHandler={isEdited}
+        onBodyBlurHandler={inputFinishHandler}
       >
         {currentValue.bodyText}
       </CardBody>

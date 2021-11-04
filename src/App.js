@@ -12,10 +12,10 @@ function App() {
   };
 
   return (
-    <div>
+    <>
       <Header></Header>
       <Card CardText={cardText}></Card>
-    </div>
+    </>
   );
 }
 

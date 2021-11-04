@@ -9,14 +9,14 @@ function Caption(props) {
     "dark-mode-caption-border": props.cbValueForStyle,
   });
 
-  //passing checkbox value to the parent
-  const cbValueHandler = (val) => {
-    props.onCbValue(val);
+  //passing checkbox value change to the parent
+  const cbChangeHandler = () => {
+    props.onCbChange();
   };
 
-  //passsing edit mode to the parent
-  const penClickedHandler = (val) => {
-    props.onPenClicked(val);
+  //passsing edit mode change to the parent
+  const penClickHandler = () => {
+    props.onPenClick();
   };
 
   //passing save and cancel clicks to the parent
@@ -30,7 +30,7 @@ function Caption(props) {
 
   //passing current text of the card header to the parent
   function inputFinishHandler(event) {
-    props.onHeaderBlurHandler(event.target.innerText);
+    props.onHeaderBlurHandler(event.target);
   }
 
   return (
@@ -39,13 +39,14 @@ function Caption(props) {
         className={captionClasses}
         contentEditable={props.contentEditableHandler}
         onBlur={inputFinishHandler}
+        id="headerText"
       >
         {props.children}
       </div>
       <div>
         <CardHeaderElements
-          onCbValue={cbValueHandler}
-          onPenClicked={penClickedHandler}
+          onCbChange={cbChangeHandler}
+          onPenClick={penClickHandler}
           onSaveClick={saveClickHandler}
           onCancelClick={cancelClickHandler}
         ></CardHeaderElements>
