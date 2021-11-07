@@ -7,6 +7,12 @@ import { FaTimes } from "react-icons/fa";
 const StyleChanger = (props) => {
   const [penClicked, setPenClicked] = useState(false); //true - edit mode
 
+  //unsetting edit mode in view mode
+  if (props.isViewMode) {
+    if (penClicked) {
+      setPenClicked(!penClicked);
+    }
+  }
 
   const changeHandler = (event) => {
     props.onCbChange(); //passing checkbox value change to the parent
@@ -35,16 +41,12 @@ const StyleChanger = (props) => {
 
   return (
     <>
-      {!penClicked && (
+      {!penClicked ? (
         <>
-          <FaPen onClick={penClickHandler} />
-          <input
-            type="checkbox"
-            onChange={changeHandler}
-          ></input>
+          {!props.isViewMode && <FaPen onClick={penClickHandler} />}
+          <input type="checkbox" onChange={changeHandler}></input>
         </>
-      )}
-      {penClicked && (
+      ) : (
         <>
           <FaCheck onClick={saveClickHandler} className="fa" />
           <FaTimes onClick={cancelClickHandler} className="fa" />

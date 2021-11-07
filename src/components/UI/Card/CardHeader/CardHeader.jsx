@@ -4,7 +4,9 @@ import classNames from "classnames";
 
 function Caption(props) {
   //dark mode styles if checkbox is checked
-  var captionClasses = classNames("caption", { "dark-mode-caption": props.cbValueForStyle });
+  var captionClasses = classNames("caption", {
+    "dark-mode-caption": props.cbValueForStyle,
+  });
   var captionBorderClasses = classNames("caption-border", {
     "dark-mode-caption-border": props.cbValueForStyle,
   });
@@ -49,6 +51,7 @@ function Caption(props) {
           onPenClick={penClickHandler}
           onSaveClick={saveClickHandler}
           onCancelClick={cancelClickHandler}
+          isViewMode={props.isViewMode}
         ></CardHeaderElements>
       </div>
     </div>

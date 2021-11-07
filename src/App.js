@@ -1,20 +1,23 @@
+import React, { useState } from "react";
 import "./App.css";
 import Header from "./components/UI/Header";
-import Card from "./components/UI/Card/Card";
+import CardList from "./components/UI/CardList";
+import ViewOnly from "./components/UI/ViewOnly";
 
 function App() {
-  var cardText = {
-    headerText: "Caption",
-    bodyText: `Building interactive user interfaces in React is fun and easy. You
-    just need to describe how parts of the application interface look in
-    different states. React will update them in a timely manner when the
-    data changes`,
+  //view mode if view checbox is checked
+  const [viewMode, setViewMode] = useState(false);
+
+  //setting/unsetting view mode
+  const viewModeChangeHandler = () => {
+    setViewMode(!viewMode);
   };
 
   return (
     <>
       <Header></Header>
-      <Card CardText={cardText}></Card>
+      <ViewOnly onViewModeChange={viewModeChangeHandler}></ViewOnly>
+      <CardList isViewMode={viewMode}></CardList>
     </>
   );
 }
