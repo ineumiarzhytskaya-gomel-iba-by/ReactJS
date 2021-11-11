@@ -39,6 +39,9 @@ function Card(props) {
     setLastValue({
       ...currentValue,
     });
+
+    //passing new card data to the parent
+    props.onUpdatedCardText(currentValue);
   };
 
   //setting header and body values to last saved

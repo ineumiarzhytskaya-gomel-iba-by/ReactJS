@@ -75,11 +75,25 @@ function App() {
     setViewMode(!viewMode);
   };
 
+  //updating data of the cards list
+  const updatedCardTextHandler = (cardText) => {
+    for (let i = 0; i < cardsText.length; i++) {
+      if (cardsText[i].id === cardText.id) {
+        cardsText[i] = cardText;
+      }
+    }
+    setCardsText([...cardsText]);
+  };
+
   return (
     <>
       <Header></Header>
       <ViewOnly onViewModeChange={viewModeChangeHandler}></ViewOnly>
-      <CardList cardsText={cardsText} isViewMode={viewMode}></CardList>
+      <CardList
+        cardsText={cardsText}
+        isViewMode={viewMode}
+        onUpdatedCardText={updatedCardTextHandler}
+      ></CardList>
     </>
   );
 }
