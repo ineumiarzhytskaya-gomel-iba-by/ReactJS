@@ -76,13 +76,19 @@ function App() {
   };
 
   //updating data of the cards list
-  const updatedCardTextHandler = (cardText) => {
-    for (let i = 0; i < cardsText.length; i++) {
-      if (cardsText[i].id === cardText.id) {
-        cardsText[i] = cardText;
+  const updatedCardTextHandler = (newCardText) => {
+    const newCard = cardsText.find((cardText) => {
+      return cardText.id === newCardText.id;
+    });
+
+    const newCards = cardsText.map((cardText) => {
+      if (cardText.id === newCard.id) {
+        return newCardText;
       }
-    }
-    setCardsText([...cardsText]);
+      return cardText;
+    });
+
+    setCardsText([...newCards]);
   };
 
   return (

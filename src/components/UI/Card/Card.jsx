@@ -16,11 +16,9 @@ function Card(props) {
   const cardClasses = classNames("card", { "dark-mode-card": isSelected });
 
   //unsetting edit mode and canceling changes in view mode
-  if (props.isViewMode) {
-    if (isEdited) {
-      setIsEdited(!isEdited);
-      cancelClickHandler();
-    }
+  if (props.isViewMode && isEdited) {
+    setIsEdited(!isEdited);
+    cancelClickHandler();
   }
 
   const cbChangeHandler = () => {

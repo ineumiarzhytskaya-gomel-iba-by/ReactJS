@@ -1,27 +1,17 @@
 import "./CardList.css";
 import Card from "./Card/Card";
 
-const CardList = (props) => {
-  //passing new card data to the parent
-  const updatedCardTextHandler = (cardText) => {
-    props.onUpdatedCardText(cardText);
-  };
-
-  return (
-    <>
-      {props.cardsText.map((cardText) => {
-        return (
-          <Card
-            key={cardText.id}
-            cardText={cardText}
-            className="card"
-            isViewMode={props.isViewMode}
-            onUpdatedCardText={updatedCardTextHandler}
-          ></Card>
-        );
-      })}
-    </>
-  );
-};
+const CardList = (props) =>
+  props.cardsText.map((cardText) => (
+    <Card
+      key={cardText.id}
+      cardText={cardText}
+      className="card"
+      isViewMode={props.isViewMode}
+      onUpdatedCardText={(cardText) => {
+        props.onUpdatedCardText(cardText);
+      }}
+    ></Card>
+  ));
 
 export default CardList;

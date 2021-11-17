@@ -14,10 +14,6 @@ const StyleChanger = (props) => {
     }
   }
 
-  const changeHandler = (event) => {
-    props.onCbChange(); //passing checkbox value change to the parent
-  };
-
   const penClickHandler = () => {
     props.onCbChange();
 
@@ -44,7 +40,12 @@ const StyleChanger = (props) => {
       {!penClicked ? (
         <>
           {!props.isViewMode && <FaPen onClick={penClickHandler} />}
-          <input type="checkbox" onChange={changeHandler}></input>
+          <input
+            type="checkbox"
+            onChange={(event) => {
+              props.onCbChange();
+            }}
+          ></input>
         </>
       ) : (
         <>
