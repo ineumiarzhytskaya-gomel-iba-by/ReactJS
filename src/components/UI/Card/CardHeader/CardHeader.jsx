@@ -2,7 +2,7 @@ import "./CardHeader.css";
 import CardHeaderElements from "./CardHeaderElements";
 import classNames from "classnames";
 
-function Caption(props) {
+const CardHeader = (props) => {
   //dark mode styles if checkbox is checked
   let captionClasses = classNames("caption", {
     "dark-mode-caption": props.cbValueForStyle,
@@ -44,4 +44,4 @@ function Caption(props) {
   );
 }
 
-export default Caption;
+export default CardHeader;

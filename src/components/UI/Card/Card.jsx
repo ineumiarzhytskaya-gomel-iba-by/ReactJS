@@ -4,7 +4,7 @@ import CardBody from "./CardBody/CardBody";
 import CardHeader from "./CardHeader/CardHeader";
 import classNames from "classnames";
 
-function Card(props) {
+const Card = (props) => {
   const [isSelected, setIsSelected] = useState(false); //checkbox state
   const [isEdited, setIsEdited] = useState(false); //edit mode
   //current header and body values

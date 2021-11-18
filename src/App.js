@@ -77,16 +77,14 @@ function App() {
 
   //updating data of the cards list
   const updatedCardTextHandler = (newCardText) => {
-    const newCard = cardsText.find((cardText) => {
-      return cardText.id === newCardText.id;
-    });
+    //finding index of changed card in the array of cards
+    const newCardId = cardsText.findIndex(
+      (cardText) => cardText.id === newCardText.id
+    );
 
-    const newCards = cardsText.map((cardText) => {
-      if (cardText.id === newCard.id) {
-        return newCardText;
-      }
-      return cardText;
-    });
+    //Updating text of the changed card
+    const newCards = [...cardsText];
+    newCards[newCardId] = newCardText;
 
     setCardsText([...newCards]);
   };
