@@ -1,0 +1,15 @@
+label {
+  font-size: 25px;
+  color: rgb(20, 4, 66);
+  font-weight: bold;
+}
+
+.block {
+  border-top-right-radius: 7px;
+  border-bottom-right-radius: 7px;
+  background: rgb(230, 228, 235);
+  margin-top: 10px;
+  width: 145px;
+  padding: 5px;
+  padding-left: 20px;
+}

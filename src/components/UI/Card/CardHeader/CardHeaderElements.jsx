@@ -4,13 +4,13 @@ import { FaPen } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa";
 import { FaTimes } from "react-icons/fa";
 
-const StyleChanger = (props) => {
+const CardHeaderElements = (props) => {
   const [penClicked, setPenClicked] = useState(false); //true - edit mode
 
-
-  const changeHandler = (event) => {
-    props.onCbChange(); //passing checkbox value change to the parent
-  };
+  //unsetting edit mode in view mode
+  if (props.isViewMode && penClicked) {
+    setPenClicked(!penClicked);
+  }
 
   const penClickHandler = () => {
     props.onCbChange();
@@ -35,16 +35,17 @@ const StyleChanger = (props) => {
 
   return (
     <>
-      {!penClicked && (
+      {!penClicked ? (
         <>
-          <FaPen onClick={penClickHandler} />
+          {!props.isViewMode && <FaPen onClick={penClickHandler} />}
           <input
             type="checkbox"
-            onChange={changeHandler}
+            onChange={(event) => {
+              props.onCbChange();
+            }}
           ></input>
         </>
-      )}
-      {penClicked && (
+      ) : (
         <>
           <FaCheck onClick={saveClickHandler} className="fa" />
           <FaTimes onClick={cancelClickHandler} className="fa" />
@@ -54,4 +55,4 @@ const StyleChanger = (props) => {
   );
 };
 
-export default StyleChanger;
+export default CardHeaderElements;
