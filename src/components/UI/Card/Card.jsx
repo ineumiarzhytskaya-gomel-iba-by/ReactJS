@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Card.css";
 import CardBody from "./CardBody/CardBody";
 import CardHeader from "./CardHeader/CardHeader";
@@ -11,6 +11,7 @@ const Card = (props) => {
   const [currentValue, setCurrentValue] = useState(props.cardText);
   //last saved header and body values to cancel changes
   const [lastValue, setLastValue] = useState(props.cardText);
+  //console.log("cb value", isSelected, "edit mode", isEdited, props.id)
 
   //dark styles mode if checkbox is checked
   const cardClasses = classNames("card", { "dark-mode-card": isSelected });
@@ -26,6 +27,11 @@ const Card = (props) => {
       setIsSelected(!isSelected); //setting checkbox state
     }
   };
+
+  //passing checkbox state and edit mode to modify the delete list
+  useEffect(() => {
+    props.addToDeleteList(props.id, isSelected, isEdited);
+  }, [isSelected, isEdited]);
 
   const penClickHandler = () => {
     setIsEdited(!isEdited); //setting/unsetting edit mode
@@ -80,6 +86,6 @@ const Card = (props) => {
       </CardBody>
     </div>
   );
-}
+};
 
 export default Card;
