@@ -1,5 +1,5 @@
 import "./CardHeader.css";
-import CardHeaderElements from "./CardHeaderElements/CardHeaderElements";
+import CardHeaderElements from "./CardHeaderElements";
 import classNames from "classnames";
 
 const CardHeader = (props) => {

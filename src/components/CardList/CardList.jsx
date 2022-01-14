@@ -1,27 +1,28 @@
 import "./CardList.css";
-import Card from "./../UI/Card/Card";
+import Card from "./../UI/Card";
 
-const CardList = (props) => {
-  //don't show cards where isDeleted property is true
-  const notDeletedCards = props.cardsText.filter((cardText) => {
-    return !cardText.isDeleted;
-  });
-
-  return notDeletedCards.map((cardText) => (
-    <Card
-      key={cardText.id}
-      id={cardText.id}
-      cardText={cardText}
-      className="card"
-      isViewMode={props.isViewMode}
-      onUpdatedCardText={(cardText) => {
-        props.onUpdatedCardText(cardText);
-      }}
-      addToDeleteList={(cardId, isSelected, isEdited) =>
-        props.addToDeleteList(cardId, isSelected, isEdited)
-      }
-    ></Card>
-  ));
-};
+const CardList = ({
+  cardsText,
+  isViewMode,
+  onUpdatedCardText,
+  addToSelectionList,
+}) => (
+  <div className="card-list">
+    {cardsText.map((cardText) => (
+      <Card
+        key={cardText.id}
+        id={cardText.id}
+        cardText={cardText}
+        isViewMode={isViewMode}
+        onUpdatedCardText={(cardText) => {
+          onUpdatedCardText(cardText);
+        }}
+        addToSelectionList={(cardId, isSelected, isEdited) =>
+          addToSelectionList(cardId, isSelected, isEdited)
+        }
+      ></Card>
+    ))}
+  </div>
+);
 
 export default CardList;
