@@ -1,22 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Card.css";
-import CardBody from "./CardBody/CardBody";
-import CardHeader from "./CardHeader/CardHeader";
+import CardBody from "./CardBody";
+import CardHeader from "./CardHeader";
 import classNames from "classnames";
 
-const Card = (props) => {
+const Card = ({
+  id,
+  cardText,
+  isViewMode,
+  onUpdatedCardText,
+  addToSelectionList,
+}) => {
   const [isSelected, setIsSelected] = useState(false); //checkbox state
   const [isEdited, setIsEdited] = useState(false); //edit mode
   //current header and body values
-  const [currentValue, setCurrentValue] = useState(props.cardText);
+  const [currentValue, setCurrentValue] = useState(cardText);
   //last saved header and body values to cancel changes
-  const [lastValue, setLastValue] = useState(props.cardText);
+  const [lastValue, setLastValue] = useState(cardText);
 
   //dark styles mode if checkbox is checked
   const cardClasses = classNames("card", { "dark-mode-card": isSelected });
 
   //unsetting edit mode and canceling changes in view mode
-  if (props.isViewMode && isEdited) {
+  if (isViewMode && isEdited) {
     setIsEdited(!isEdited);
     cancelClickHandler();
   }
@@ -26,6 +32,12 @@ const Card = (props) => {
       setIsSelected(!isSelected); //setting checkbox state
     }
   };
+
+  //passing checkbox state and edit mode to modify the delete list
+  useEffect(() => {
+    addToSelectionList(id, isSelected, isEdited);
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSelected, isEdited, id]);
 
   const penClickHandler = () => {
     setIsEdited(!isEdited); //setting/unsetting edit mode
@@ -39,7 +51,7 @@ const Card = (props) => {
     });
 
     //passing new card data to the parent
-    props.onUpdatedCardText(currentValue);
+    onUpdatedCardText(currentValue);
   };
 
   //setting header and body values to last saved
@@ -68,7 +80,7 @@ const Card = (props) => {
         contentEditableHandler={isEdited}
         cbValueForStyle={isSelected}
         onHeaderBlurHandler={inputFinishHandler}
-        isViewMode={props.isViewMode}
+        isViewMode={isViewMode}
       >
         {currentValue.headerText}
       </CardHeader>
@@ -80,6 +92,6 @@ const Card = (props) => {
       </CardBody>
     </div>
   );
-}
+};
 
 export default Card;

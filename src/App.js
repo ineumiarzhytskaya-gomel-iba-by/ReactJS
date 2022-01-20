@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import "./App.css";
 import Header from "./components/UI/Header";
-import CardList from "./components/UI/CardList";
-import ViewOnly from "./components/UI/ViewOnly";
+import CardList from "./components/CardList";
+import ViewOnly from "./components/ViewOnly";
+import DeleteCards from "./components/DeleteCards";
 
 function App() {
   const initialCardsData = [
@@ -26,29 +27,29 @@ function App() {
       id: 2,
       headerText: "Render",
       bodyText: `The only method you must define in a React.Component subclass 
-          is called render(). All the other methods described on this page are optional`,
+        is called render(). All the other methods described on this page are optional`,
     },
     {
       id: 3,
       headerText: "Constructor",
       bodyText: `The constructor for a React component is called before it is mounted. 
-          When implementing the constructor for a React.Component subclass, you should call 
-          super(props) before any other statement. Otherwise, this.props will be undefined 
-          in the constructor`,
+        When implementing the constructor for a React.Component subclass, you should call 
+        super(props) before any other statement. Otherwise, this.props will be undefined 
+        in the constructor`,
     },
     {
       id: 4,
       headerText: "State",
       bodyText: `The state contains data specific to this component that may change over 
-          time. The state is user-defined, and it should be a plain JavaScript object`,
+        time. The state is user-defined, and it should be a plain JavaScript object`,
     },
     {
       id: 5,
       headerText: "Set state",
       bodyText: `setState() enqueues changes to the component state and tells React that 
-          this component and its children need to be re-rendered with the updated state. 
-          This is the primary method you use to update the user interface in response to event 
-          handlers and server responses`,
+        this component and its children need to be re-rendered with the updated state. 
+        This is the primary method you use to update the user interface in response to event 
+        handlers and server responses`,
     },
     {
       id: 6,
@@ -59,13 +60,14 @@ function App() {
       id: 7,
       headerText: "Render",
       bodyText: `The render() method is the only required method in a class component. 
-          When called, it should examine this.props and this.state and return one of the 
-          following types: React elements, Arrays and fragments, Portals, String and numbers, 
-          Booleans or null`,
+        When called, it should examine this.props and this.state and return one of the 
+        following types: React elements, Arrays and fragments, Portals, String and numbers, 
+        Booleans or null`,
     },
   ];
 
   const [cardsText, setCardsText] = useState(initialCardsData);
+  const [selectionList, setSelectionList] = useState([]); //array with ids of selected cards
 
   //view mode if view checbox is checked
   const [viewMode, setViewMode] = useState(false);
@@ -89,14 +91,41 @@ function App() {
     setCardsText([...newCards]);
   };
 
+  const addToSelectionListHandler = (cardId, isSelected, isEdited) => {
+    //adding selected cards to the list
+    if (isSelected && !isEdited) {
+      setSelectionList((prevList) => [...prevList, cardId]);
+      //deleting cards from the list if they were unselected
+    } else if (!isSelected) {
+      let index = selectionList.indexOf(cardId);
+
+      if (index !== -1) {
+        let tempList = [...selectionList];
+        tempList.splice(index, 1);
+        setSelectionList(() => [...tempList]);
+      }
+    }
+  };
+
+  //clicking the delete button
+  const deleteCardsHandler = () => {
+    let tempCards = [...cardsText];
+    tempCards = tempCards.filter((card) => !selectionList.includes(card.id));
+    setCardsText([...tempCards]);
+  };
+
   return (
     <>
       <Header></Header>
-      <ViewOnly onViewModeChange={viewModeChangeHandler}></ViewOnly>
+      <div className="actions-container">
+        <ViewOnly onViewModeChange={viewModeChangeHandler}></ViewOnly>
+        <DeleteCards onDeleteCards={deleteCardsHandler}></DeleteCards>
+      </div>
       <CardList
         cardsText={cardsText}
         isViewMode={viewMode}
         onUpdatedCardText={updatedCardTextHandler}
+        addToSelectionList={addToSelectionListHandler}
       ></CardList>
     </>
   );
