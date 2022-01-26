@@ -3,7 +3,9 @@ import "./App.css";
 import Header from "./components/UI/Header";
 import CardList from "./components/CardList";
 import ViewOnly from "./components/ViewOnly";
-import DeleteCards from "./components/DeleteCards";
+import Button from "./components/UI/Button";
+import AddCard from "./components/AddCard/AddCard";
+import { v4 as uuidv4 } from "uuid";
 
 function App() {
   const initialCardsData = [
@@ -68,6 +70,7 @@ function App() {
 
   const [cardsText, setCardsText] = useState(initialCardsData);
   const [selectionList, setSelectionList] = useState([]); //array with ids of selected cards
+  const [formShown, setFormShown] = useState(false);
 
   //view mode if view checbox is checked
   const [viewMode, setViewMode] = useState(false);
@@ -114,13 +117,31 @@ function App() {
     setCardsText([...tempCards]);
   };
 
+  //form appears and dissapears when you click the button
+  const showFormHandler = () => {
+    setFormShown(!formShown);
+  };
+
+  //adding new card
+  const addCardHandler = (newCardHeader, newCardBody) => {
+    setCardsText((prevCards) => [
+      ...prevCards,
+      { id: uuidv4(), headerText: newCardHeader, bodyText: newCardBody },
+    ]);
+    setFormShown(false);
+  };
+
   return (
     <>
       <Header></Header>
       <div className="actions-container">
         <ViewOnly onViewModeChange={viewModeChangeHandler}></ViewOnly>
-        <DeleteCards onDeleteCards={deleteCardsHandler}></DeleteCards>
+        <Button onButtonClick={showFormHandler}>New card</Button>
+        <Button onButtonClick={deleteCardsHandler}>
+          Delete selected cards
+        </Button>
       </div>
+      {formShown && <AddCard onAddCard={addCardHandler}></AddCard>}
       <CardList
         cardsText={cardsText}
         isViewMode={viewMode}

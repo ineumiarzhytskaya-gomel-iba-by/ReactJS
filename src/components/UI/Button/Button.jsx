@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const DeleteButton = styled.button`
+const StyledButton = styled.button`
   font-size: 20px;
   height: 45px;
   margin-top: 10px;
@@ -17,10 +17,10 @@ const DeleteButton = styled.button`
   padding: 0px 10px 0px 10px;
 `;
 
-const DeleteCards = (props) => (
-  <DeleteButton onClick={() => props.onDeleteCards()}>
-    Delete selected cards
-  </DeleteButton>
+const Button = (props) => (
+  <StyledButton onClick={() => props.onButtonClick()}>
+    {props.children}
+  </StyledButton>
 );
 
-export default DeleteCards;
+export default Button;
