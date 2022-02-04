@@ -3,6 +3,7 @@ import "./Card.css";
 import CardBody from "./CardBody";
 import CardHeader from "./CardHeader";
 import classNames from "classnames";
+import Spinner from "../Spinner";
 
 const Card = ({
   id,
@@ -94,4 +95,4 @@ const Card = ({
   );
 };
 
-export default Card;
+export default Spinner(Card);

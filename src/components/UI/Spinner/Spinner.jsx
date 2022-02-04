@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { PulseLoader } from "react-spinners";
 import "./Spinner.css";
 
-const Spinner = (props) => {
+const Spinner = (Component) => {
   const [showSpinner, setShowSpinner] = useState(true);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ const Spinner = (props) => {
         <PulseLoader color="rgb(34, 4, 116)" size={20} margin={7}></PulseLoader>
     </div>
   ) : (
-    props.children
+    Component
   );
 };
 

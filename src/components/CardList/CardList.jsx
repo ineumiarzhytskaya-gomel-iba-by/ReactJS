@@ -1,6 +1,5 @@
 import "./CardList.css";
 import Card from "./../UI/Card";
-import Spinner from "../UI/Spinner";
 
 const CardList = ({
   cardsText,
@@ -10,7 +9,6 @@ const CardList = ({
 }) => (
   <div className="card-list">
     {cardsText.map((cardText) => (
-      <Spinner key={cardText.id}>
         <Card
           key={cardText.id}
           id={cardText.id}
@@ -23,7 +21,6 @@ const CardList = ({
             addToSelectionList(cardId, isSelected, isEdited)
           }
         ></Card>
-      </Spinner>
     ))}
   </div>
 );
