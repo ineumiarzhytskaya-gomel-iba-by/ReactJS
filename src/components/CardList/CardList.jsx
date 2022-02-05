@@ -9,18 +9,18 @@ const CardList = ({
 }) => (
   <div className="card-list">
     {cardsText.map((cardText) => (
-      <Card
-        key={cardText.id}
-        id={cardText.id}
-        cardText={cardText}
-        isViewMode={isViewMode}
-        onUpdatedCardText={(cardText) => {
-          onUpdatedCardText(cardText);
-        }}
-        addToSelectionList={(cardId, isSelected, isEdited) =>
-          addToSelectionList(cardId, isSelected, isEdited)
-        }
-      ></Card>
+        <Card
+          key={cardText.id}
+          id={cardText.id}
+          cardText={cardText}
+          isViewMode={isViewMode}
+          onUpdatedCardText={(cardText) => {
+            onUpdatedCardText(cardText);
+          }}
+          addToSelectionList={(cardId, isSelected, isEdited) =>
+            addToSelectionList(cardId, isSelected, isEdited)
+          }
+        ></Card>
     ))}
   </div>
 );
