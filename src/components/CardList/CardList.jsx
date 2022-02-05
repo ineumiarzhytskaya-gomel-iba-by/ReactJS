@@ -1,28 +1,26 @@
 import "./CardList.css";
+import CardContext from "../../store";
+import { useContext } from "react";
+
 import Card from "./../UI/Card";
 
 const CardList = ({
-  cardsText,
   isViewMode,
-  onUpdatedCardText,
-  addToSelectionList,
-}) => (
-  <div className="card-list">
-    {cardsText.map((cardText) => (
+}) => {
+  const ctx = useContext(CardContext);
+
+  return (
+    <div className="card-list">
+      {ctx.cardsData.map((cardText) => (
         <Card
           key={cardText.id}
           id={cardText.id}
           cardText={cardText}
           isViewMode={isViewMode}
-          onUpdatedCardText={(cardText) => {
-            onUpdatedCardText(cardText);
-          }}
-          addToSelectionList={(cardId, isSelected, isEdited) =>
-            addToSelectionList(cardId, isSelected, isEdited)
-          }
         ></Card>
-    ))}
-  </div>
-);
+      ))}
+    </div>
+  );
+};
 
 export default CardList;

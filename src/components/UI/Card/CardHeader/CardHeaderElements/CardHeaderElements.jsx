@@ -43,6 +43,7 @@ const CardHeaderElements = (props) => {
             onChange={(event) => {
               props.onCbChange();
             }}
+            className="cb"
           ></input>
         </>
       ) : (

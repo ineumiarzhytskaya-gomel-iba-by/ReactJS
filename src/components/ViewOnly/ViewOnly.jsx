@@ -4,6 +4,7 @@ const ViewLabel = styled.label`
   font-size: 25px;
   color: rgb(20, 4, 66);
   font-weight: bold;
+  margin-right: 10px;
 `;
 
 const ViewOnly = styled.div`
@@ -15,8 +16,8 @@ const ViewOnly = styled.div`
   }
   transition: background 0.3s;
   margin-top: 10px;
-  width: 145px;
-  padding: 5px;
+  width: 175px;
+  padding-bottom: 1px;
   padding-left: 20px;
 `;
 
