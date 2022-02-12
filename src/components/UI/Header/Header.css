@@ -1,7 +1,22 @@
 .head {
+  display: flex;
+  flex-direction: column;
   text-align: center;
   font-size: 50px;
   color: rgb(20, 4, 66);
   background: rgb(230, 228, 235);
   padding-bottom: 10px;
+  align-items: flex-end;
+  padding: 10px;
+}
+
+.cards-number {
+  font-size: 20px;
+  font-weight: bold;
+  width: 100%;
+  display: flex;
+}
+
+.header-title {
+  width: 100%;
 }

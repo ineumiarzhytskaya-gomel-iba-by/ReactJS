@@ -1,7 +1,10 @@
 import "./AddCard.css";
-import { useRef } from "react";
+import { useRef, useContext } from "react";
+import CardContext from "../../store";
 
 const AddCard = (props) => {
+  const ctx = useContext(CardContext)
+
   //refs for card body and header inputs
   const cardHeaderRef = useRef();
   const cardBodyRef = useRef();
@@ -11,7 +14,8 @@ const AddCard = (props) => {
 
     const cardHeader = cardHeaderRef.current.value;
     const cardBody = cardBodyRef.current.value;
-    props.onAddCard(cardHeader, cardBody);
+    ctx.onAddCard(cardHeader, cardBody);
+    props.onFormHide();
   };
 
   return (
