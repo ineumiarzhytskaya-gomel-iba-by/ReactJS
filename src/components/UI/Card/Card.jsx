@@ -95,7 +95,7 @@ const Card = ({ id, cardText, isViewMode }) => {
 };
 
 Card.propTypes = {
-  id: PropTypes.number,
+  id: PropTypes.string,
   cardText: PropTypes.object,
   isViewMode: PropTypes.bool,
 };
