@@ -2,3 +2,10 @@
     display: flex;
     flex-wrap: wrap;
 }
+
+.error-message {
+    font-size: 25px;
+    font-weight: bold;
+    color: rgb(20, 4, 66);
+    text-align: center;
+}
