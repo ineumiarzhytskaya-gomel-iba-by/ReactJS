@@ -24,15 +24,13 @@ export const CardContextProvider = (props) => {
         "https://raw.githubusercontent.com/BrunnerLivio/PokemonDataGraber/master/output.json"
       )
       .then((response) => {
-        const respData = response.data
-          .filter((data, index) => index <= 14)
-          .map((data) => {
-            return {
-              id: uuidv4(),
-              headerText: data.Name,
-              bodyText: data.About,
-            };
-          });
+        const respData = response.data.slice(0, 15).map((data) => {
+          return {
+            id: uuidv4(),
+            headerText: data.Name,
+            bodyText: data.About,
+          };
+        });
         setCardsText(respData);
       })
       .catch((error) => {
