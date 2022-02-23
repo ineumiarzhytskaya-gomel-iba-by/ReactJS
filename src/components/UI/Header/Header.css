@@ -15,8 +15,26 @@
   font-weight: bold;
   width: 100%;
   display: flex;
+  justify-content: space-between;
 }
 
 .header-title {
   width: 100%;
+}
+
+.link {
+  color: rgb(20, 4, 66);
+  margin: 10px 20px 10px 20px;
+  font-size: 25px;
+}
+
+.active-link {
+  color: rgb(34, 4, 116);
+  margin: 10px 20px 10px 20px;
+  font-size: 25px;
+}
+
+.link:hover,
+.active-link:hover {
+  text-decoration: none;
 }

@@ -1,40 +1,22 @@
-import React, { useState, useContext } from "react";
+import React from "react";
 import "./App.css";
-import CardContext from "./store";
+import { Route, Routes, Navigate } from "react-router-dom";
 
+import ErrorPage from "./pages/ErrorPage";
+import Home from "./pages/Home";
+import SignIn from "./pages/SignIn";
 import Header from "./components/UI/Header";
-import CardList from "./components/CardList";
-import ViewOnly from "./components/ViewOnly";
-import Button from "./components/UI/Button";
-import AddCard from "./components/AddCard/AddCard";
 
 function App() {
-  const ctx = useContext(CardContext);
-
-  const [formShown, setFormShown] = useState(false);
-  //view mode if view checbox is checked
-  const [viewMode, setViewMode] = useState(false);
-
-  //setting/unsetting view mode
-  const viewModeChangeHandler = () => {
-    setViewMode(!viewMode);
-  };
-
-  //form appears and dissapears when you click the button
-  const showFormHandler = () => {
-    setFormShown(!formShown);
-  };
-
   return (
     <>
-      <Header></Header>
-      <div className="actions-container">
-        <ViewOnly onViewModeChange={viewModeChangeHandler}></ViewOnly>
-        <Button onButtonClick={showFormHandler}>New card</Button>
-        <Button onButtonClick={ctx.onDeleteCards}>Delete selected cards</Button>
-      </div>
-      {formShown && <AddCard onFormHide={showFormHandler} />}
-      <CardList isViewMode={viewMode}></CardList>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Navigate to="/home" />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/*" element={<ErrorPage />} />
+      </Routes>
     </>
   );
 }
