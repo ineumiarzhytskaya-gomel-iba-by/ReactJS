@@ -10,12 +10,6 @@
   color: rgb(20, 4, 66);
 }
 
-.input {
-  font-size: 20px;
-  width: 385px;
-  margin: 10px 0px 10px 0px;
-}
-
 .sign-in-button {
   font-size: 20px;
   color: rgb(230, 228, 235);
@@ -29,6 +23,16 @@
 
 .sign-in-button:hover {
   background-color: rgb(20, 4, 66);
+}
+
+.disabled-button {
+  font-size: 20px;
+  color: rgb(20, 4, 66);
+  font-weight: bold;
+  background-color: rgb(200, 200, 200);
+  padding: 5px 15px 5px 15px;
+  border-radius: 5px;
+  border: none;
 }
 
 .sign-in-background {
