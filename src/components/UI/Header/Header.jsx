@@ -1,29 +1,23 @@
 import "./Header.css";
 import { useContext } from "react";
 import CardContext from "../../../store";
-import { NavLink, Routes, Route } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 const Header = () => {
   const ctx = useContext(CardContext);
+  const location = useLocation().pathname;
 
   return (
     <div className="head">
       <div className="header-title">React app</div>
       <div className="cards-number">
         <div>
-          <Routes>
-            <Route
-              path="/home"
-              element={
-                <>
-                  <span style={{ marginRight: "5px" }}>Number of cards</span>
-                  <span className="badge badge-light">
-                    {ctx.cardsData.length}
-                  </span>
-                </>
-              }
-            />
-          </Routes>
+          {location === "/home" && (
+            <>
+              <span style={{ marginRight: "5px" }}>Number of cards</span>
+              <span className="badge badge-light">{ctx.cardsData.length}</span>
+            </>
+          )}
         </div>
         <div>
           <NavLink

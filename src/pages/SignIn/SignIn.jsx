@@ -10,7 +10,10 @@ const SignIn = () => {
     password: false,
   });
 
-  const goHomeHandler = () => navigate("/home");
+  const goHomeHandler = (event) => {
+    event.preventDefault();
+    navigate("/home");
+  };
 
   const validateFormHandler = useCallback((isValid, id) => {
     setIsFormValid((prevState) => {
