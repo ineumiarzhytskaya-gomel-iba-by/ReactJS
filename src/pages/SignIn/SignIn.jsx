@@ -23,17 +23,40 @@ const SignIn = () => {
     });
   }, []);
 
+  const inputFields = [
+    {
+      id: "username",
+      type: "text",
+      validateForm: validateFormHandler,
+      validateField: (value) => /^.+?@.+?\..+?/.test(value),
+      text: "Username",
+    },
+    {
+      id: "password",
+      type: "password",
+      validateForm: validateFormHandler,
+      validateField: (value) =>
+        value.length >= 8 && /\d/.test(value) && /[a-zа-яё]/i.test(value),
+      text: "Password",
+    },
+  ];
+
   const isButtonDisabled = Object.values(isFormValid).includes(false);
 
   return (
     <div className="sign-in-background">
       <form onSubmit={goHomeHandler} className="sign-in-form">
-        <Input id="username" type="text" validateForm={validateFormHandler}>
-          Username
-        </Input>
-        <Input id="password" type="password" validateForm={validateFormHandler}>
-          Password
-        </Input>
+        {inputFields.map((field) => (
+          <Input
+            key={field.id}
+            id={field.id}
+            type={field.text}
+            validateForm={field.validateForm}
+            validateField={field.validateField}
+          >
+            {field.text}
+          </Input>
+        ))}
         <button
           type="submit"
           className={isButtonDisabled ? "disabled-button" : "sign-in-button"}

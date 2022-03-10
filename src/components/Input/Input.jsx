@@ -1,26 +1,15 @@
 import "./Input.css";
 import { useState, useEffect } from "react";
 
-const Input = ({ id, type, children, validateForm }) => {
+const Input = ({ id, type, children, validateForm, validateField }) => {
   const [isValid, setIsValid] = useState(false);
   const [isTouched, setIsTouched] = useState(false);
 
   const changeHandler = (event) => {
     const value = event.target.value;
 
-    if (id === "username") {
-      if (/^.+?@.+?\..+?/.test(value)) {
-        !isValid && setIsValid(true);
-      } else {
-        isValid && setIsValid(false);
-      }
-    } else if (id === "password") {
-      if (value.length >= 8 && /\d/.test(value) && /[a-zа-яё]/i.test(value)) {
-        !isValid && setIsValid(true);
-      } else {
-        isValid && setIsValid(false);
-      }
-    }
+    const validationResult = validateField(value);
+    validationResult !== isValid && setIsValid(validationResult);
   };
 
   useEffect(() => {
