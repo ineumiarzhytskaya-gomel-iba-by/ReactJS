@@ -1,11 +1,10 @@
 import "./Header.css";
-import { useContext } from "react";
-import CardContext from "../../../store";
+import { useSelector } from "react-redux";
 import { NavLink, useLocation } from "react-router-dom";
 
 const Header = () => {
-  const ctx = useContext(CardContext);
   const location = useLocation().pathname;
+  const cardsData = useSelector((state) => state.card.cardsText);
 
   return (
     <div className="head">
@@ -15,7 +14,7 @@ const Header = () => {
           {location === "/home" && (
             <>
               <span style={{ marginRight: "5px" }}>Number of cards</span>
-              <span className="badge badge-light">{ctx.cardsData.length}</span>
+              <span className="badge badge-light">{cardsData.length}</span>
             </>
           )}
         </div>

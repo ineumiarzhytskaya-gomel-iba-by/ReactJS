@@ -1,0 +1,66 @@
+import { createSlice } from "@reduxjs/toolkit";
+import { v4 as uuidv4 } from "uuid";
+
+const cardSlice = createSlice({
+  name: "card",
+  initialState: {
+    cardsText: [],
+    selectionList: [],
+    errorMessage: null,
+  },
+  reducers: {
+    onUpdatedCardText(state, action) {
+      //updating data of the cards list
+      //finding index of changed card in the array of cards
+      const card = action.payload.card;
+
+      const newCardId = state.cardsText.findIndex(
+        (cardText) => cardText.id === card.id
+      );
+
+      //Updating text of the changed card
+      state.cardsText[newCardId] = card;
+    },
+    onAddCard(state, action) {
+      //adding new card
+      const payload = action.payload;
+
+      state.cardsText.push({
+        id: uuidv4(),
+        headerText: payload.cardHeader,
+        bodyText: payload.cardBody,
+      });
+    },
+    onDeleteCards(state) {
+      let tempCards = state.cardsText.filter(
+        (card) => !state.selectionList.includes(card.id)
+      );
+      state.cardsText = tempCards;
+    },
+    onAddToSelectionList(state, action) {
+      //adding selected cards to the list
+      const payload = action.payload;
+
+      if (payload.isSelected && !payload.isEdited) {
+        state.selectionList.push(payload.cardId);
+        //deleting cards from the list if they were unselected
+      } else if (!payload.isSelected) {
+        let index = state.selectionList.indexOf(payload.cardId);
+
+        if (index !== -1) {
+          state.selectionList.splice(index, 1);
+        }
+      }
+    },
+    getInitialCards(state, action) {
+      state.cardsText = action.payload.initialCards;
+    },
+    setErrorMessage(state, action) {
+      state.errorMessage = action.payload.errorMessage;
+    },
+  },
+});
+
+export const cardActions = cardSlice.actions;
+
+export default cardSlice;

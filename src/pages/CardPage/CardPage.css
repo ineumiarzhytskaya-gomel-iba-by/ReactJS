@@ -1,0 +1,47 @@
+.card-page {
+    border: 3px solid rgb(34, 4, 116);
+    border-radius: 10px;
+    padding: 10px;
+    width: 600px;
+    background: rgb(250, 250, 250);
+}
+
+.card-page-container {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-page-caption {
+    width: 575px;
+    border-bottom: 2px solid rgb(20, 4, 66);
+    display: flex;
+    justify-content: space-between;
+    color: rgb(20, 4, 66);
+    padding-bottom: 5px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.card-page-text {
+    font-size: 18px;
+    padding-top: 5px;
+}
+
+.save-button {
+    font-size: 20px;
+    color: rgb(230, 228, 235);
+    background-color: rgb(34, 4, 116);
+    padding: 5px 15px 5px 15px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 1px 1px 3px 1px rgb(20, 4, 66, 0.5);
+    transition: background-color 0.3s;
+    width: 150px;
+    margin: 10px;
+}
+
+.save-button:hover {
+    background-color: rgb(20, 4, 66);
+}
