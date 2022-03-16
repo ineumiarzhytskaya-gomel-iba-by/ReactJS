@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
+import axios from "axios";
 
 const cardSlice = createSlice({
   name: "card",
@@ -60,6 +61,30 @@ const cardSlice = createSlice({
     },
   },
 });
+
+export const getInitialCardsAction = () => {
+  return (dispatch) => {
+    axios
+      .get(
+        "https://raw.githubusercontent.com/BrunnerLivio/PokemonDataGraber/master/output.json"
+      )
+      .then((response) => {
+        const respData = response.data.slice(0, 15).map((data) => {
+          return {
+            id: uuidv4(),
+            headerText: data.Name,
+            bodyText: data.About,
+          };
+        });
+        dispatch(cardSlice.actions.getInitialCards({ initialCards: respData }));
+      })
+      .catch((error) => {
+        dispatch(
+          cardSlice.actions.setErrorMessage({ errorMessage: error.message })
+        );
+      });
+  };
+};
 
 export const cardActions = cardSlice.actions;
 

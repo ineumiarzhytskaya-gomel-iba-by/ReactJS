@@ -79,7 +79,7 @@ const Card = ({ id, cardText, isViewMode }) => {
   };
 
   const openCardPage = () => {
-    if (!isEdited) {
+    if (!isEdited && !isViewMode) {
       navigate(`/card/${id}`);
     }
   };

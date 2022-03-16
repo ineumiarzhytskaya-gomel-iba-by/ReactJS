@@ -3,8 +3,11 @@ import React, { useState } from "react";
 import { FaPen } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa";
 import { FaTimes } from "react-icons/fa";
+import { useLocation } from "react-router-dom";
 
 const CardHeaderElements = (props) => {
+  const location = useLocation().pathname;
+
   const [penClicked, setPenClicked] = useState(false); //true - edit mode
 
   //unsetting edit mode in view mode
@@ -38,13 +41,15 @@ const CardHeaderElements = (props) => {
       {!penClicked ? (
         <>
           {!props.isViewMode && <FaPen onClick={penClickHandler} />}
-          <input
-            type="checkbox"
-            onChange={(event) => {
-              props.onCbChange();
-            }}
-            className="cb"
-          ></input>
+          {!location.startsWith("/card") && (
+            <input
+              type="checkbox"
+              onChange={(event) => {
+                props.onCbChange();
+              }}
+              className="cb"
+            ></input>
+          )}
         </>
       ) : (
         <>

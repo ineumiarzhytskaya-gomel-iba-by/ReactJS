@@ -1,11 +1,3 @@
-.card-page {
-    border: 3px solid rgb(34, 4, 116);
-    border-radius: 10px;
-    padding: 10px;
-    width: 600px;
-    background: rgb(250, 250, 250);
-}
-
 .card-page-container {
     margin-top: 30px;
     display: flex;
@@ -13,23 +5,7 @@
     align-items: center;
 }
 
-.card-page-caption {
-    width: 575px;
-    border-bottom: 2px solid rgb(20, 4, 66);
-    display: flex;
-    justify-content: space-between;
-    color: rgb(20, 4, 66);
-    padding-bottom: 5px;
-    font-size: 30px;
-    font-weight: bold;
-}
-
-.card-page-text {
-    font-size: 18px;
-    padding-top: 5px;
-}
-
-.save-button {
+.card-page-button {
     font-size: 20px;
     color: rgb(230, 228, 235);
     background-color: rgb(34, 4, 116);
@@ -42,6 +18,6 @@
     margin: 10px;
 }
 
-.save-button:hover {
+.card-page-button:hover {
     background-color: rgb(20, 4, 66);
 }
