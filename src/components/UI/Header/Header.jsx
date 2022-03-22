@@ -1,11 +1,24 @@
 import "./Header.css";
-import { useContext } from "react";
-import CardContext from "../../../store";
+import { useSelector, useDispatch } from "react-redux";
 import { NavLink, useLocation } from "react-router-dom";
+import { cardActions } from "../../../store/card-slice";
 
 const Header = () => {
-  const ctx = useContext(CardContext);
   const location = useLocation().pathname;
+  const dispatch = useDispatch();
+
+  const cardsData = useSelector((state) => state.card.cardsText);
+
+  const onChangeSeparatePath = () => {
+    const separateCard = cardsData.find((card) => card.isSeparatePath);
+    separateCard &&
+      dispatch(
+        cardActions.changeSeparatePath({
+          value: false,
+          cardId: separateCard.id,
+        })
+      );
+  };
 
   return (
     <div className="head">
@@ -15,7 +28,7 @@ const Header = () => {
           {location === "/home" && (
             <>
               <span style={{ marginRight: "5px" }}>Number of cards</span>
-              <span className="badge badge-light">{ctx.cardsData.length}</span>
+              <span className="badge badge-light">{cardsData.length}</span>
             </>
           )}
         </div>
@@ -23,12 +36,14 @@ const Header = () => {
           <NavLink
             to="/home"
             className={(navData) => (navData.isActive ? "active-link" : "link")}
+            onClick={onChangeSeparatePath}
           >
             Home page
           </NavLink>
           <NavLink
             to="/sign-in"
             className={(navData) => (navData.isActive ? "active-link" : "link")}
+            onClick={onChangeSeparatePath}
           >
             Sign in
           </NavLink>

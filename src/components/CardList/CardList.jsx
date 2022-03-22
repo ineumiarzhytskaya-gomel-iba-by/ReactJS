@@ -1,17 +1,17 @@
 import "./CardList.css";
-import CardContext from "../../store";
-import { useContext } from "react";
+import { useSelector } from "react-redux";
 
 import Card from "./../UI/Card";
 
 const CardList = ({ isViewMode }) => {
-  const ctx = useContext(CardContext);
+  const cardsData = useSelector((state) => state.card.cardsText);
+  const errorMessage = useSelector((state) => state.card.errorMessage);
 
-  return ctx.errorMessage ? (
-    <div className="error-message">{ctx.errorMessage}</div>
+  return errorMessage ? (
+    <div className="error-message">{errorMessage}</div>
   ) : (
     <div className="card-list">
-      {ctx.cardsData.map((cardText) => (
+      {cardsData.map((cardText) => (
         <Card
           key={cardText.id}
           id={cardText.id}

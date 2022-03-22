@@ -38,13 +38,15 @@ const CardHeaderElements = (props) => {
       {!penClicked ? (
         <>
           {!props.isViewMode && <FaPen onClick={penClickHandler} />}
-          <input
-            type="checkbox"
-            onChange={(event) => {
-              props.onCbChange();
-            }}
-            className="cb"
-          ></input>
+          {!props.isSeparatePath && (
+            <input
+              type="checkbox"
+              onChange={(event) => {
+                props.onCbChange();
+              }}
+              className="cb"
+            ></input>
+          )}
         </>
       ) : (
         <>

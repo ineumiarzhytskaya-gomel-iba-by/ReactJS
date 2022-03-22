@@ -1,15 +1,18 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import "./Card.css";
-import CardContext from "../../../store";
+import { useDispatch } from "react-redux";
+import { cardActions } from "../../../store/card-slice";
 import classNames from "classnames";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 import CardBody from "./CardBody";
 import CardHeader from "./CardHeader";
 import Spinner from "../Spinner";
 
 const Card = ({ id, cardText, isViewMode }) => {
-  const ctx = useContext(CardContext);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [isSelected, setIsSelected] = useState(false); //checkbox state
   const [isEdited, setIsEdited] = useState(false); //edit mode
@@ -35,7 +38,13 @@ const Card = ({ id, cardText, isViewMode }) => {
 
   //passing checkbox state and edit mode to modify the delete list
   useEffect(() => {
-    ctx.onAddToSelectionList(id, isSelected, isEdited);
+    dispatch(
+      cardActions.onAddToSelectionList({
+        cardId: id,
+        isSelected: isSelected,
+        isEdited: isEdited,
+      })
+    );
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSelected, isEdited, id]);
 
@@ -50,8 +59,7 @@ const Card = ({ id, cardText, isViewMode }) => {
       ...currentValue,
     });
 
-    //passing new card data to the parent
-    ctx.onUpdatedCardText(currentValue);
+    dispatch(cardActions.onUpdatedCardText({ card: currentValue }));
   };
 
   //setting header and body values to last saved
@@ -70,8 +78,15 @@ const Card = ({ id, cardText, isViewMode }) => {
     });
   };
 
+  const openCardPage = () => {
+    if (!isEdited && !isViewMode) {
+      navigate(`/card/${id}`);
+      dispatch(cardActions.changeSeparatePath({ value: true, cardId: id }));
+    }
+  };
+
   return (
-    <div className={cardClasses}>
+    <div className={cardClasses} onDoubleClick={openCardPage}>
       <CardHeader
         onCbChange={cbChangeHandler}
         onPenClick={penClickHandler}
@@ -81,6 +96,7 @@ const Card = ({ id, cardText, isViewMode }) => {
         cbValueForStyle={isSelected}
         onHeaderBlurHandler={inputFinishHandler}
         isViewMode={isViewMode}
+        isSeparatePath={cardText.isSeparatePath}
       >
         {currentValue.headerText}
       </CardHeader>

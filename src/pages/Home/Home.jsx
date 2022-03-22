@@ -1,6 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import "./Home.css";
-import CardContext from "../../store";
+import { useDispatch } from "react-redux";
+import { cardActions } from "../../store/card-slice";
 
 import CardList from "../../components/CardList";
 import ViewOnly from "../../components/ViewOnly";
@@ -8,7 +9,7 @@ import Button from "../../components/UI/Button";
 import AddCard from "../../components/AddCard";
 
 const Home = () => {
-  const ctx = useContext(CardContext);
+  const dispatch = useDispatch();
 
   const [formShown, setFormShown] = useState(false);
   //view mode if view checbox is checked
@@ -29,7 +30,13 @@ const Home = () => {
       <div className="actions-container">
         <ViewOnly onViewModeChange={viewModeChangeHandler}></ViewOnly>
         <Button onButtonClick={showFormHandler}>New card</Button>
-        <Button onButtonClick={ctx.onDeleteCards}>Delete selected cards</Button>
+        <Button
+          onButtonClick={() => {
+            dispatch(cardActions.onDeleteCards());
+          }}
+        >
+          Delete selected cards
+        </Button>
       </div>
       {formShown && <AddCard onFormHide={showFormHandler} />}
       <CardList isViewMode={viewMode}></CardList>

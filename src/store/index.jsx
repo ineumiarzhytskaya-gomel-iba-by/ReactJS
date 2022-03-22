@@ -1,3 +1,8 @@
-import CardContext from "./card-context";
+import { configureStore } from "@reduxjs/toolkit";
+import cardSlice from "./card-slice";
 
-export default CardContext;
+const store = configureStore({
+  reducer: { card: cardSlice.reducer },
+});
+
+export default store;

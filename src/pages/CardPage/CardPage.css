@@ -1,0 +1,23 @@
+.card-page-container {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-page-button {
+    font-size: 20px;
+    color: rgb(230, 228, 235);
+    background-color: rgb(34, 4, 116);
+    padding: 5px 15px 5px 15px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 1px 1px 3px 1px rgb(20, 4, 66, 0.5);
+    transition: background-color 0.3s;
+    width: 150px;
+    margin: 10px;
+}
+
+.card-page-button:hover {
+    background-color: rgb(20, 4, 66);
+}
