@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./Card.css";
 import { useDispatch } from "react-redux";
-import { cardActions } from "../../../store/card-slice";
+import {
+  changeSeparatePathAction,
+  onUpdatedCardTextAction,
+  onAddToSelectionListAction,
+} from "../../../store/card-slice";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
@@ -38,13 +42,7 @@ const Card = ({ id, cardText, isViewMode }) => {
 
   //passing checkbox state and edit mode to modify the delete list
   useEffect(() => {
-    dispatch(
-      cardActions.onAddToSelectionList({
-        cardId: id,
-        isSelected: isSelected,
-        isEdited: isEdited,
-      })
-    );
+    dispatch(onAddToSelectionListAction(id, isSelected, isEdited));
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSelected, isEdited, id]);
 
@@ -59,7 +57,7 @@ const Card = ({ id, cardText, isViewMode }) => {
       ...currentValue,
     });
 
-    dispatch(cardActions.onUpdatedCardText({ card: currentValue }));
+    dispatch(onUpdatedCardTextAction(currentValue));
   };
 
   //setting header and body values to last saved
@@ -81,7 +79,7 @@ const Card = ({ id, cardText, isViewMode }) => {
   const openCardPage = () => {
     if (!isEdited && !isViewMode) {
       navigate(`/card/${id}`);
-      dispatch(cardActions.changeSeparatePath({ value: true, cardId: id }));
+      dispatch(changeSeparatePathAction(true, id));
     }
   };
 

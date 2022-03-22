@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Home.css";
 import { useDispatch } from "react-redux";
-import { cardActions } from "../../store/card-slice";
+import { onDeleteCardsAction } from "../../store/card-slice";
 
 import CardList from "../../components/CardList";
 import ViewOnly from "../../components/ViewOnly";
@@ -32,7 +32,7 @@ const Home = () => {
         <Button onButtonClick={showFormHandler}>New card</Button>
         <Button
           onButtonClick={() => {
-            dispatch(cardActions.onDeleteCards());
+            dispatch(onDeleteCardsAction());
           }}
         >
           Delete selected cards

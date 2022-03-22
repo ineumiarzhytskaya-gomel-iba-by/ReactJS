@@ -84,13 +84,70 @@ export const getInitialCardsAction = () => {
             isSeparatePath: false,
           };
         });
+        console.log("getInitialCards", respData);
         dispatch(cardSlice.actions.getInitialCards({ initialCards: respData }));
       })
       .catch((error) => {
+        console.log("setErrorMessage", error.message);
         dispatch(
           cardSlice.actions.setErrorMessage({ errorMessage: error.message })
         );
       });
+  };
+};
+
+export const setErrorMessageAction = (errorMessage) => {
+  return (dispatch) => {
+    console.log("setErrorMessage", errorMessage);
+    dispatch(cardSlice.actions.setErrorMessage({ errorMessage: errorMessage }));
+  };
+};
+
+export const onAddCardAction = (cardHeader, cardBody) => {
+  return (dispatch) => {
+    console.log("onAddCard", cardHeader, cardBody);
+    dispatch(
+      cardSlice.actions.onAddCard({
+        cardHeader: cardHeader,
+        cardBody: cardBody,
+      })
+    );
+  };
+};
+
+export const onDeleteCardsAction = () => {
+  return (dispatch) => {
+    console.log("onDeleteCards (no parameters)");
+    dispatch(cardSlice.actions.onDeleteCards());
+  };
+};
+
+export const changeSeparatePathAction = (value, cardId) => {
+  return (dispatch) => {
+    console.log("changeSeparatePath", value, cardId);
+    dispatch(
+      cardSlice.actions.changeSeparatePath({ value: value, cardId: cardId })
+    );
+  };
+};
+
+export const onUpdatedCardTextAction = (card) => {
+  return (dispatch) => {
+    console.log("onUpdatedCardText", card);
+    dispatch(cardSlice.actions.onUpdatedCardText({ card: card }));
+  };
+};
+
+export const onAddToSelectionListAction = (cardId, isSelected, isEdited) => {
+  return (dispatch) => {
+    console.log("onAddToSelectionList", cardId, isSelected, isEdited);
+    dispatch(
+      cardSlice.actions.onAddToSelectionList({
+        cardId: cardId,
+        isSelected: isSelected,
+        isEdited: isEdited,
+      })
+    );
   };
 };
 
