@@ -81,6 +81,7 @@ const Card = ({ id, cardText, isViewMode }) => {
   const openCardPage = () => {
     if (!isEdited && !isViewMode) {
       navigate(`/card/${id}`);
+      dispatch(cardActions.changeSeparatePath({ value: true, cardId: id }));
     }
   };
 
@@ -95,6 +96,7 @@ const Card = ({ id, cardText, isViewMode }) => {
         cbValueForStyle={isSelected}
         onHeaderBlurHandler={inputFinishHandler}
         isViewMode={isViewMode}
+        isSeparatePath={cardText.isSeparatePath}
       >
         {currentValue.headerText}
       </CardHeader>

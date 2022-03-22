@@ -38,6 +38,7 @@ const CardHeader = (props) => {
             props.onCancelClick();
           }}
           isViewMode={props.isViewMode}
+          isSeparatePath={props.isSeparatePath}
         ></CardHeaderElements>
       </div>
     </div>

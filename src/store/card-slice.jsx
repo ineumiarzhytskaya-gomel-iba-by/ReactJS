@@ -30,6 +30,7 @@ const cardSlice = createSlice({
         id: uuidv4(),
         headerText: payload.cardHeader,
         bodyText: payload.cardBody,
+        isSeparatePath: false,
       });
     },
     onDeleteCards(state) {
@@ -59,6 +60,12 @@ const cardSlice = createSlice({
     setErrorMessage(state, action) {
       state.errorMessage = action.payload.errorMessage;
     },
+    changeSeparatePath(state, action) {
+      let index = state.cardsText.findIndex(
+        (card) => card.id === action.payload.cardId
+      );
+      state.cardsText[index].isSeparatePath = action.payload.value;
+    },
   },
 });
 
@@ -74,6 +81,7 @@ export const getInitialCardsAction = () => {
             id: uuidv4(),
             headerText: data.Name,
             bodyText: data.About,
+            isSeparatePath: false,
           };
         });
         dispatch(cardSlice.actions.getInitialCards({ initialCards: respData }));
