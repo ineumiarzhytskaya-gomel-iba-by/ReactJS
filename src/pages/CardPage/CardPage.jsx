@@ -1,7 +1,7 @@
 import "./CardPage.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { changeSeparatePathAction } from "../../store/card-slice";
+import { cardActions } from "../../store/card-slice";
 import Card from "../../components/UI/Card";
 
 const CardPage = () => {
@@ -14,7 +14,7 @@ const CardPage = () => {
 
   const backButtonClick = () => {
     navigate("/home");
-    dispatch(changeSeparatePathAction(false, cardId));
+    dispatch(cardActions.changeSeparatePath({ value: false, cardId: cardId }));
   };
 
   return card ? (

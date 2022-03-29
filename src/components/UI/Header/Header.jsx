@@ -1,7 +1,7 @@
 import "./Header.css";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink, useLocation } from "react-router-dom";
-import { changeSeparatePathAction } from "../../../store/card-slice";
+import { cardActions } from "../../../store/card-slice";
 
 const Header = () => {
   const location = useLocation().pathname;
@@ -11,7 +11,13 @@ const Header = () => {
 
   const onChangeSeparatePath = () => {
     const separateCard = cardsData.find((card) => card.isSeparatePath);
-    separateCard && dispatch(changeSeparatePathAction(false, separateCard.id));
+    separateCard &&
+      dispatch(
+        cardActions.changeSeparatePath({
+          value: false,
+          cardId: separateCard.id,
+        })
+      );
   };
 
   return (
