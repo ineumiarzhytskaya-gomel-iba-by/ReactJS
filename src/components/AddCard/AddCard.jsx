@@ -1,10 +1,11 @@
 import "./AddCard.css";
 import { useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { cardActions } from "../../store/card-slice";
 
 const AddCard = (props) => {
   const dispatch = useDispatch();
+  const errorMessage = useSelector((state) => state.card.errorMessage);
 
   //refs for card body and header inputs
   const cardHeaderRef = useRef();
@@ -18,7 +19,7 @@ const AddCard = (props) => {
     dispatch(
       cardActions.onAddCard({ cardHeader: cardHeader, cardBody: cardBody })
     );
-    dispatch(cardActions.setErrorMessage({ errorMessage: null }));
+    errorMessage && dispatch(cardActions.setErrorMessage({ errorMessage: null }));
     props.onFormHide();
   };
 

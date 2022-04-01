@@ -87,6 +87,7 @@ export const getInitialCardsAction = () => {
         dispatch(cardSlice.actions.getInitialCards({ initialCards: respData }));
       })
       .catch((error) => {
+        console.log("setErrorMessage", error.message);
         dispatch(
           cardSlice.actions.setErrorMessage({ errorMessage: error.message })
         );
