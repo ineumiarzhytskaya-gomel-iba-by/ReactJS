@@ -95,11 +95,6 @@ export const getInitialCardsAction = () => {
   };
 };
 
-export const loggerMiddleware = (dispatch) => (next) => (action) => {
-  console.log(action.type, action.payload);
-  return next(action);
-};
-
 export const cardActions = cardSlice.actions;
 
 export default cardSlice;
