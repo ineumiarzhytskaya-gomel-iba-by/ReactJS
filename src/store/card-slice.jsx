@@ -8,6 +8,7 @@ const cardSlice = createSlice({
     cardsText: [],
     selectionList: [],
     errorMessage: null,
+    viewMode: false,
   },
   reducers: {
     onUpdatedCardText(state, action) {
@@ -65,6 +66,9 @@ const cardSlice = createSlice({
         (card) => card.id === action.payload.cardId
       );
       state.cardsText[index].isSeparatePath = action.payload.value;
+    },
+    changeViewMode(state) {
+      state.viewMode = !state.viewMode;
     },
   },
 });
