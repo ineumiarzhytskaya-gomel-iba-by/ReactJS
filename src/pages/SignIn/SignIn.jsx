@@ -18,6 +18,7 @@ const SignIn = () => {
     username: "",
     password: "",
   });
+  const [authError, setAuthError] = useState("");
 
   //users: masha@gmail.com 1234masha
   //       vasya@gmail.com 1234vasya
@@ -35,6 +36,7 @@ const SignIn = () => {
         }
       )
       .then((response) => {
+        setAuthError("");
         dispatch(
           usersActions.login({
             userEmail: response.data.email,
@@ -43,7 +45,7 @@ const SignIn = () => {
         );
         navigate("/home");
       })
-      .catch((error) => alert(error.message));
+      .catch((error) => setAuthError(error.message));
   };
 
   const validateFormHandler = useCallback((isValid, id) => {
@@ -93,6 +95,7 @@ const SignIn = () => {
             {field.text}
           </Input>
         ))}
+        <div className="auth-error">{authError}</div>
         <button
           type="submit"
           className={isButtonDisabled ? "disabled-button" : "sign-in-button"}
