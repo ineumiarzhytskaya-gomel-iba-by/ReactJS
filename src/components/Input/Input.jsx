@@ -1,7 +1,7 @@
 import "./Input.css";
 import { useState, useEffect } from "react";
 
-const Input = ({ id, type, children, validateForm, validateField }) => {
+const Input = ({ id, type, children, validateForm, validateField, fieldValue }) => {
   const [isValid, setIsValid] = useState(false);
   const [isTouched, setIsTouched] = useState(false);
 
@@ -10,6 +10,8 @@ const Input = ({ id, type, children, validateForm, validateField }) => {
 
     const validationResult = validateField(value);
     validationResult !== isValid && setIsValid(validationResult);
+
+    fieldValue(value);
   };
 
   useEffect(() => {

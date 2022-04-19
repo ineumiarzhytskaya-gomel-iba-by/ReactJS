@@ -3,9 +3,10 @@ import { useSelector } from "react-redux";
 
 import Card from "./../UI/Card";
 
-const CardList = ({ isViewMode }) => {
+const CardList = () => {
   const cardsData = useSelector((state) => state.card.cardsText);
   const errorMessage = useSelector((state) => state.card.errorMessage);
+  const isViewMode = useSelector((state) => state.card.viewMode);
 
   return errorMessage ? (
     <div className="error-message">{errorMessage}</div>

@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux";
 import { cardActions } from "../../store/card-slice";
 
 import CardList from "../../components/CardList";
-import ViewOnly from "../../components/ViewOnly";
 import Button from "../../components/UI/Button";
 import AddCard from "../../components/AddCard";
 
@@ -12,13 +11,6 @@ const Home = () => {
   const dispatch = useDispatch();
 
   const [formShown, setFormShown] = useState(false);
-  //view mode if view checbox is checked
-  const [viewMode, setViewMode] = useState(false);
-
-  //setting/unsetting view mode
-  const viewModeChangeHandler = () => {
-    setViewMode(!viewMode);
-  };
 
   //form appears and dissapears when you click the button
   const showFormHandler = () => {
@@ -28,7 +20,6 @@ const Home = () => {
   return (
     <>
       <div className="actions-container">
-        <ViewOnly onViewModeChange={viewModeChangeHandler}></ViewOnly>
         <Button onButtonClick={showFormHandler}>New card</Button>
         <Button
           onButtonClick={() => {
@@ -39,7 +30,7 @@ const Home = () => {
         </Button>
       </div>
       {formShown && <AddCard onFormHide={showFormHandler} />}
-      <CardList isViewMode={viewMode}></CardList>
+      <CardList />
     </>
   );
 };

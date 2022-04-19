@@ -41,3 +41,10 @@
     justify-content: center;
     align-items: flex-start;
 }
+
+.auth-error {
+  color: rgb(255, 60, 60);
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 15px;
+}

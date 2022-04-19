@@ -1,6 +1,6 @@
 .actions-container {
-    width: 550px;
+    width: 350px;
     display: flex;
     justify-content: space-between;
-    margin: 7px 0px 7px 0px;
+    margin: 7px 0px 7px 20px;
   }
