@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 
 const ViewLabel = styled.label`
   font-size: 25px;
@@ -11,7 +12,7 @@ const ViewOnly = styled.div`
   border-top-right-radius: 7px;
   border-bottom-right-radius: 7px;
   background: rgb(230, 228, 235);
-  &:hover{
+  &:hover {
     background: rgb(216, 210, 230);
   }
   transition: background 0.3s;
@@ -21,17 +22,22 @@ const ViewOnly = styled.div`
   padding-left: 20px;
 `;
 
-const viewOnlyExport = (props) => (
-  <ViewOnly>
-    <ViewLabel htmlFor="viewMode">View only </ViewLabel>
-    <input
-      type="checkbox"
-      id="viewMode"
-      onChange={() => {
-        props.onViewModeChange();
-      }}
-    ></input>
-  </ViewOnly>
-);
+const ViewOnlyExport = (props) => {
+  const isViewMode = useSelector((state) => state.card.viewMode);
 
-export default viewOnlyExport;
+  return (
+    <ViewOnly>
+      <ViewLabel htmlFor="viewMode">View only </ViewLabel>
+      <input
+        type="checkbox"
+        id="viewMode"
+        checked={isViewMode}
+        onChange={() => {
+          props.onViewModeChange();
+        }}
+      ></input>
+    </ViewOnly>
+  );
+};
+
+export default ViewOnlyExport;
