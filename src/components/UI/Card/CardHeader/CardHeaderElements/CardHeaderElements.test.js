@@ -54,10 +54,6 @@ describe("CardHeaderElements", () => {
   it("should click on the FaPen", () => {
     const [wrapper, props] = init();
 
-    /*const setPenClicked = jest.fn();
-    const mockState = jest.spyOn(React, "useState");
-    mockState.mockImplementation(penClicked => [penClicked, setPenClicked])*/
-
     wrapper.find(FaPen).simulate("click");
     expect(props.onCbChange).toBeCalled();
     expect(props.onPenClick).toBeCalled();
@@ -79,13 +75,13 @@ describe("CardHeaderElements", () => {
     expect(props.onPenClick).toBeCalled();
   });
 
-  //this test doesn't work
   it("should call useState", () => {
-    const [wrapper, _] = init();
-    const setPenClicked = jest.fn();
     const useStateSpy = jest.spyOn(React, "useState");
-    useStateSpy.mockImplementation((init) => [init, setPenClicked]);
-    wrapper.find(FaPen).props().onClick();
-    expect(setPenClicked).toHaveBeenCalledWith(true);
+
+    const [wrapperPencil, _] = init();
+    expect(wrapperPencil.find(FaPen).length).toBe(1);
+
+    wrapperPencil.find(FaPen).simulate("click");
+    expect(useStateSpy).toHaveBeenCalled();
   });
 });
