@@ -7,9 +7,6 @@ import { FaTimes } from "react-icons/fa";
 const CardHeaderElements = (props) => {
   const [penClicked, setPenClicked] = React.useState(false); //true - edit mode
   //unsetting edit mode in view mode
-  /*if (props.isViewMode && penClicked) {
-    setPenClicked(!penClicked);
-  }*/
 
   const penClickHandler = () => {
     props.onCbChange();

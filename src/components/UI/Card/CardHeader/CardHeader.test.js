@@ -8,52 +8,58 @@ import CardHeader from "./CardHeader";
 import CardHeaderElements from "./CardHeaderElements";
 
 describe("CardHeader", () => {
-  const init = (props) => {
-    const defaultProps = {
-      onCbChange: jest.fn(),
-      onPenClick: jest.fn(),
-      onSaveClick: jest.fn(),
-      onCancelClick: jest.fn(),
-      contentEditableHandler: true,
-      cbValueForStyle: false,
-      onHeaderBlurHandler: jest.fn(),
-      isViewMode: false,
-      isSeparatePath: false,
-    };
-
-    return [
-      shallow(<CardHeader {...defaultProps} {...props} />),
-      { ...defaultProps, ...props },
-    ];
+  let wrapper;
+  const defaultProps = {
+    onCbChange: jest.fn(),
+    onPenClick: jest.fn(),
+    onSaveClick: jest.fn(),
+    onCancelClick: jest.fn(),
+    contentEditableHandler: true,
+    cbValueForStyle: false,
+    onHeaderBlurHandler: jest.fn(),
+    isViewMode: false,
+    isSeparatePath: false,
+    children: "header",
   };
 
+  beforeEach(() => {
+    wrapper = shallow(<CardHeader {...defaultProps} />);
+  });
+
   it("should render without crashes", () => {
-    const [wrapper, _] = init();
     expect(wrapper).toBeDefined();
   });
 
+  it("should render CardHeaderElements", () => {
+    expect(wrapper.find(CardHeaderElements)).toHaveLength(1);
+  });
+
+  it("should render header with correct text", () => {
+    expect(wrapper.find("#headerText").prop("children")).toEqual(
+      defaultProps.children
+    );
+  });
+
   it("should call onBlur", () => {
-    const [wrapper, props] = init();
     wrapper.find("#headerText").simulate("blur", {
       target: {},
     });
-    expect(props.onHeaderBlurHandler).toHaveBeenCalled();
+    expect(defaultProps.onHeaderBlurHandler).toHaveBeenCalled();
   });
 
   it("should pass props to the child", () => {
-    const [wrapper, props] = init();
     const cardHeaderElements = wrapper.find(CardHeaderElements);
 
     cardHeaderElements.prop("onCbChange")();
-    expect(props.onCbChange).toHaveBeenCalled();
+    expect(defaultProps.onCbChange).toHaveBeenCalled();
 
     cardHeaderElements.prop("onPenClick")();
-    expect(props.onPenClick).toHaveBeenCalled();
+    expect(defaultProps.onPenClick).toHaveBeenCalled();
 
     cardHeaderElements.prop("onSaveClick")();
-    expect(props.onSaveClick).toHaveBeenCalled();
+    expect(defaultProps.onSaveClick).toHaveBeenCalled();
 
     cardHeaderElements.prop("onCancelClick")();
-    expect(props.onCancelClick).toHaveBeenCalled();
+    expect(defaultProps.onCancelClick).toHaveBeenCalled();
   });
 });

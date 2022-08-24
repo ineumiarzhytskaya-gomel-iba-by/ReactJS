@@ -7,28 +7,29 @@ Enzyme.configure({ adapter: new Adapter() });
 import CardBody from "./CardBody";
 
 describe("CardBody", () => {
-  const init = (props) => {
-    const defaultProps = {
-      contentEditableHandler: true,
-      onBodyBlurHandler: jest.fn(),
-    };
-
-    return [
-      shallow(<CardBody {...defaultProps} {...props} />),
-      { ...defaultProps, ...props },
-    ];
+  let wrapper;
+  const defaultProps = {
+    contentEditableHandler: true,
+    onBodyBlurHandler: jest.fn(),
+    children: "body",
   };
 
+  beforeEach(() => {
+    wrapper = shallow(<CardBody {...defaultProps} />);
+  });
+
   it("should render without crashes", () => {
-    const [wrapper, _] = init();
     expect(wrapper).toBeDefined();
   });
 
+  it("should render component with correct body text", () => {
+    expect(wrapper.find("div").prop("children")).toEqual(defaultProps.children);
+  });
+
   it("should call onBlur", () => {
-    const [wrapper, props] = init();
     wrapper.find("div").simulate("blur", {
       target: {},
     });
-    expect(props.onBodyBlurHandler).toHaveBeenCalled();
+    expect(defaultProps.onBodyBlurHandler).toHaveBeenCalled();
   });
 });

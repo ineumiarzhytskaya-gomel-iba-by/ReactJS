@@ -7,20 +7,25 @@ Enzyme.configure({ adapter: new Adapter() });
 import CardHeaderElements from "./CardHeaderElements";
 import { FaPen, FaCheck, FaTimes } from "react-icons/fa";
 
-describe("CardHeaderElements", () => {
-  const init = (props) => {
-    const defaultProps = {
-      onCbChange: jest.fn(),
-      onPenClick: jest.fn(),
-      onSaveClick: jest.fn(),
-      onCancelClick: jest.fn(),
-    };
+const defaultProps = {
+  onCbChange: jest.fn(),
+  onPenClick: jest.fn(),
+  onSaveClick: jest.fn(),
+  onCancelClick: jest.fn(),
+  isViewMode: false,
+  isSeparatePath: false,
+};
 
-    return [
-      shallow(<CardHeaderElements {...defaultProps} {...props} />),
-      { ...defaultProps, ...props },
-    ];
-  };
+describe("CardHeaderElements", () => {
+  const init = (props) => [
+    shallow(<CardHeaderElements {...defaultProps} {...props} />),
+    { ...defaultProps, ...props },
+  ];
+
+  it("should render without crashes", () => {
+    const [wrapper, _] = init();
+    expect(wrapper).toBeDefined();
+  });
 
   it("should render without crashes", () => {
     const [wrapper, _] = init();

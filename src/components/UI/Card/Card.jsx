@@ -25,9 +25,7 @@ const Card = ({ id, cardText, isViewMode }) => {
   const cardClasses = classNames("card", { "dark-mode-card": isSelected });
 
   const cbChangeHandler = () => {
-    if (!isEdited) {
-      setIsSelected(!isSelected); //setting checkbox state
-    }
+    setIsSelected(!isSelected);
   };
 
   //passing checkbox state and edit mode to modify the delete list
