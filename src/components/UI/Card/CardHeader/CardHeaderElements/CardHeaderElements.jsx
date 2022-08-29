@@ -1,16 +1,12 @@
 import "./CardHeaderElements.css";
-import React, { useState } from "react";
+import React from "react";
 import { FaPen } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa";
 import { FaTimes } from "react-icons/fa";
 
 const CardHeaderElements = (props) => {
-  const [penClicked, setPenClicked] = useState(false); //true - edit mode
-
+  const [penClicked, setPenClicked] = React.useState(false); //true - edit mode
   //unsetting edit mode in view mode
-  if (props.isViewMode && penClicked) {
-    setPenClicked(!penClicked);
-  }
 
   const penClickHandler = () => {
     props.onCbChange();
