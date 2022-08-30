@@ -1,16 +1,17 @@
-import React from "react";
-import "./App.css";
+import React, { Suspense } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getInitialCardsAction } from "./store/card-slice";
 import { usersActions } from "./store/users-slice";
-
-import ErrorPage from "./pages/ErrorPage";
-import Home from "./pages/Home";
-import SignIn from "./pages/SignIn";
 import Header from "./components/UI/Header";
-import CardPage from "./pages/CardPage";
-import SettingsPage from "./pages/SettingsPage";
+import Fallback from "./components/UI/Fallback";
+import "./App.css";
+
+const ErrorPage = React.lazy(() => import("./pages/ErrorPage"));
+const Home = React.lazy(() => import("./pages/Home"));
+const SignIn = React.lazy(() => import("./pages/SignIn"));
+const CardPage = React.lazy(() => import("./pages/CardPage"));
+const SettingsPage = React.lazy(() => import("./pages/SettingsPage"));
 
 let isInitial = true;
 
@@ -37,7 +38,7 @@ function App() {
   }
 
   return (
-    <>
+    <Suspense fallback={<Fallback />}>
       <Header />
       <Routes>
         <Route
@@ -50,7 +51,7 @@ function App() {
         {isAdmin && <Route path="/settings" element={<SettingsPage />} />}
         <Route path="/*" element={<ErrorPage />} />
       </Routes>
-    </>
+    </Suspense>
   );
 }
 
