@@ -4,11 +4,11 @@ const usePrompt = (interval, modalText) => {
   const [userInput, setUserInput] = useState("");
 
   useEffect(() => {
-    let intervalId = setInterval(() => {
+    let timeoutId = setTimeout(() => {
       setUserInput(prompt(modalText));
     }, interval);
 
-    return () => clearInterval(intervalId);
+    return () => clearTimeout(timeoutId);
   }, [interval, modalText]);
 
   return userInput;
